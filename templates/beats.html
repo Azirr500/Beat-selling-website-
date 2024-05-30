@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Beats</h1>
+{% if current_user.is_authenticated and current_user.username == 'adminrights' and current_user.email == 'admin@beats.com' %}
+    <a href="{{ url_for('auth.add_beat') }}" class="btn btn-primary">Add Beat</a>
+{% endif %}
+<div>
+    {% for beat in beats %}
+    <div class="beat">
+        <h3>{{ beat.title }}</h3>
+        <audio controls>
+            <source src="{{ url_for('static', filename='mp3/' ~ beat.filename) }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <p>Price: ${{ beat.price }}</p>
+        <form method="POST" action="{{ url_for('main.add_to_cart', beat_id=beat.id) }}">
+            {{ form.hidden_tag() }}
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </form>
+        {% if current_user.is_authenticated and current_user.username == 'adminrights' and current_user.email == 'admin@beats.com' %}
+        <form method="POST" action="{{ url_for('main.remove_beat', beat_id=beat.id) }}" style="display:inline;">
+            {{ form.hidden_tag() }}
+            <button type="submit" class="btn btn-danger">Remove Beat</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

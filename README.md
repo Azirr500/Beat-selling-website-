@@ -34,6 +34,7 @@ Step-by-Step Instructions to Run the Website
 bash
 git clone <repository-url>
 cd <repository-directory>
+make sure to add "css", "mp3" and "images" inside of a folder named "static"
 
 2. Set Up Virtual Environment
 
@@ -126,3 +127,5 @@ routes.py
 
 Contains route handlers for rendering templates and handling form submissions.
 Includes logic for user authentication, cart management, and beat handling.
+
+
